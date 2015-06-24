@@ -235,16 +235,22 @@ has twitter => (
 sub _build_twitter {
   my $self = shift;
 
-  my @twitter;
+  return undef unless $self->get_metadata('twitter');
 
-  foreach my $handle ($self->get_metadata( 'twitter' )) {
-    if ($handle) {
-      push @twitter, \$handle; 
-      warn \$handle;
-    }
-  }
+  return [ ref $self->metadata('twitter') ?
+           @{ $self->metadata('twitter') } :
+           $self->metadata('twitter')
+         ];
 
-  return @twitter ? \@twitter : undef;
+  # my @twitter;
+
+  # foreach my $handle (@{$self->get_metadata('twitter')}) {
+  #   if ($handle) {
+  #    push @twitter, \$handle; 
+  #   }
+  # }
+
+  #return @twitter ? \@twitter : undef;
 }
 
 around BUILDARGS => sub {
