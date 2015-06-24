@@ -227,7 +227,7 @@ sub _build_title {
 
 has twitter => (
   is => 'ro' ,
-  isa => 'Maybe[ArrayRef]' ,
+  isa => 'Maybe[Str]' ,
   lazy => 1 ,
   builder => '_build_twitter' ,
 );
@@ -235,22 +235,7 @@ has twitter => (
 sub _build_twitter {
   my $self = shift;
 
-  return undef unless $self->get_metadata('twitter');
-
-  return [ ref $self->metadata('twitter') ?
-           @{ $self->metadata('twitter') } :
-           $self->metadata('twitter')
-         ];
-
-  # my @twitter;
-
-  # foreach my $handle (@{$self->get_metadata('twitter')}) {
-  #   if ($handle) {
-  #    push @twitter, \$handle; 
-  #   }
-  # }
-
-  #return @twitter ? \@twitter : undef;
+  return $self->get_metadata('twitter');
 }
 
 around BUILDARGS => sub {

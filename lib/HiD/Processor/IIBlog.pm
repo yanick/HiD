@@ -45,9 +45,9 @@ sub BUILDARGS {
 
   return {
     txs => Text::Xslate->new(
+      module => [ 'Text::Xslate::Bridge::Star' ],
       function => {
         commafy     => sub { my $a = shift; join ',' , @$a },
-        lc          => sub { lc( shift ) } ,
         pretty_date => sub { shift->strftime( "%d %b %Y" ) },
       } ,
       path => $path ,
